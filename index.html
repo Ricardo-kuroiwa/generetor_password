@@ -11,11 +11,15 @@
         <h2>Gerador Aleatório de Senha</h2>
         <input type="text" name="" id="password" 
         placeholder="Criar Senha" readonly="">
+        <img src="./images/copy.png" alt="copy" class="copy" onclick="copyPassword()">
         <div id="btn" onclick="GeneratorPassword()">
             Gerar Senha
         </div>
     </div>
+    <div class="alertBox"></div>
     <script type="text/javascript">
+        var alertBox = document.querySelector(".alertBox");
+
         function GeneratorPassword(){
             var char ="0123456789abcdefghijklmnopqrstuvxwyzABCDEFGHIJLMNOPQRSTUVXWYZ!@#$%¨&*()_+?><:{}[]";
             var passwordLength = 16;
@@ -25,8 +29,18 @@
                 password += char.substring(randomNumber,randomNumber+1);
             }
             document.querySelector("#password").value=password;
+            alertBox.innerHTML="Nova senha copiada:<br>"+password;
         }
-        
+        function copyPassword(){
+            var copyPassword = document.getElementById("password");
+            copyPassword.select();
+            copyPassword.setSelectionRange(0,9999);
+            document.execCommand("copy");
+            alertBox.classList.toggle('active');
+            setTimeout(function(){
+                alertBox.classList.toggle('active');
+            },2000);
+        }
     </script>
 </body>
 </html>
